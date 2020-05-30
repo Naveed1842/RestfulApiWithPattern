@@ -36,11 +36,12 @@ namespace Supermarket.API
                 options.InvalidModelStateResponseFactory = InvalidModelStateResponseFactory.ProduceErrorResponse;
             });
 
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseInMemoryDatabase(Configuration.GetConnectionString("memory"));
-            });
+            // services.AddDbContext<AppDbContext>(options =>
+            // {
+            //     //options.UseInMemoryDatabase(Configuration.GetConnectionString("memory"));
+            // });
 
+         services.AddDbContext<AppDbContext>(p=>p.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
